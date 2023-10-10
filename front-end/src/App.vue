@@ -1,27 +1,31 @@
 <script setup>
-import { ref, onMounted, defineAsyncComponent } from 'vue';
+  import { ref, onMounted, defineAsyncComponent } from 'vue';
 
-import Title from './components/Title.vue'
-console.log(Title);
+  const pagePanels = [
+    { name: 'Title', text: 'Hello Lucas!' },
+    { name: 'Paragraph', text: "its my p"}
+  ]
 
-const pageComponentsRaw = [
-  { name: 'Title', text: 'Hello Lucas!' },
-  { name: 'Paragraph'}
-]
-
-const Components = ref([]);
-pageComponentsRaw.forEach(rawComponent => {
-  const component = defineAsyncComponent(
-    () => import(`./components/${rawComponent.name}.vue`)
-  )
-  Components.value.push(component)
-})
-
+  const Components = [];
+  
+  pagePanels.forEach(panel => {
+    const componentBuilder = defineAsyncComponent(
+      () => import(`./components/${panel.name}.vue`)
+    )
+    Components.push(componentBuilder)
+  })
 </script>
 
 <template>
-  <template v-for="c in Components">
-    <component :is="c"></component>
+  <template v-for="(c, i) in Components">
+    <component
+      :is="c"
+      :sourcePanel="pagePanels[i]"
+    >
+      
+      <!-- slot -->
+      {{ pagePanels[i].text }}
+    </component>
   </template>
 </template>
 

@@ -1,8 +1,10 @@
 <script setup>
+const { sourcePanel } = defineProps(['sourcePanel']);
 </script>
 
 <template>
-  <h1>Título da minha página</h1>
+  <h1># <slot/> </h1>
+  {{ sourcePanel }}
 </template>
 
 <style>
