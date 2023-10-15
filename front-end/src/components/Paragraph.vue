@@ -1,9 +1,16 @@
 <script setup>
-//const props = defineProps(['rawComponent'])
+  const { content } = defineProps(['content'])
 </script>
 
 <template>
-  <p>Paragrafo da minha página.</p>
+  <p>{{ content.text }}</p>
 </template>
 
-<style></style>
+<style>
+  p {
+    grid-column-start: 1;
+    grid-column-end: 5;
+
+    margin-left: 2rem;
+  }
+</style>

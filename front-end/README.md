@@ -3,20 +3,15 @@ This is the front-end of my web project!
 I am using vue.js for the first time and rendering everything in the front-end with async components.
 
 ## API interface {}
-- name: codename for the component.
-- text: innerText of the component.
+- component: codename for the component.
+- content: { -> passed for the component as a prop.
+  text: inner text
+}
+- pos: {x, y} -> positions x: 1-4, y: 1.. as grid position.
 
 ## Project Setup
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-```sh
 npm run build
 ```
