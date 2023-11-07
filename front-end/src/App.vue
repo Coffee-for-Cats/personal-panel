@@ -2,39 +2,37 @@
   import { ref, onMounted, defineAsyncComponent } from 'vue';
 
   // hardcoded API json.
-  const pagePanels = [
-    { component: 'Title', content: {text: 'I am Lucas!'}, pos: {start: 2, end: 5}},
+  const pagePanels = ref([
+    { component: 'Title', content: {text: 'I am Lucas!'}},
     { component: 'Paragraph', content: {text: "Welcome to my webpage!"}},
-    { component: 'Title', content: {text: 'I am Matheus!'}, pos: {start: 1, end: 5}}
-  ]
-  // hardcoded editing option.
-  // Todo
+    { component: 'Title', content: {text: 'I am Matheus!'}}
+  ]);
 
-  const Components = ref([]);
+  // Dynamic components hashmap.
+  const Components = {}
   
-  pagePanels.forEach(panel => {
-    const componentBuilder = defineAsyncComponent(
+  pagePanels.value.forEach(panel => {
+    const component = defineAsyncComponent(
       () => import(`./components/${panel.component}.vue`)
     )
-    Components.value.push(componentBuilder)
+    // saves in the hashtable
+    Components[panel.component] = component;
   })
 
+  // temporary "add paragraph" function
   function addP() {
-    const componentBuilder = defineAsyncComponent(
-      () => import(`./components/Paragraph.vue`)
-    )
-    Components.value.push(componentBuilder)
-    pagePanels.push({component: "Paragraph", content: { text:"Hi" } })
+    pagePanels.value.push({component: "Paragraph", content: { text:"Hi" } })
+
+    console.log(pagePanels.value);
   }
 </script>
 
 <template>
   <div id="container">
-    <template v-for="(c, i) in Components" :key="i">
+    <template v-for="(c, i) in pagePanels" :key="i">
       <component
-        :is="c"
+        :is="Components[pagePanels[i].component]"
         :content="pagePanels[i].content"
-        :pos="pagePanels[i]?.pos"
       >
       </component>
     </template>
@@ -47,9 +45,8 @@
 <style scoped>
   #container {
     width: clamp(35vw, 36rem, 95vw);
-    display: grid;
-    grid-template-columns: 25% 25% 25% 20%;
-    gap: .4rem;
+    display: flex;
+    flex-direction: column;
 
     background: #222;
     padding: 1.2rem;

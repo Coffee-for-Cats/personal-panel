@@ -7,7 +7,6 @@ I am using vue.js for the first time and rendering everything in the front-end w
 - content: { -> passed for the component as a prop.
   text: inner text
 }
-- pos: {x, y} -> positions x: 1-4, y: 1.. as grid position.
 
 ## Project Setup
 ```sh
