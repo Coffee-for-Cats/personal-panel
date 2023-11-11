@@ -1,6 +1,7 @@
 <script setup>
   import { ref, onMounted, defineAsyncComponent, provide } from 'vue';
-  import AddNew from './components/AddNew.vue';
+  import AddNew from './editing/AddNew.vue';
+  import EditPanel from './editing/EditPanel.vue'
 
   // hardcoded json API.
   const pagePanels = ref([
@@ -34,8 +35,9 @@
           :is="Components[pagePanels[i].component]"
           :content="pagePanels[i].content"
         />
+
+        <EditPanel v-if="editing" :panelIndex="i" />
       </div>
-      
     </template>
   </div>
 
@@ -56,6 +58,7 @@
   }
 
   .wrapper {
+    display: flex;
     margin: .2rem;
     padding: .3rem 1rem .3rem 1rem;
     border: 1px solid rgba(200, 200, 200, .2);
