@@ -8,6 +8,10 @@ I am using vue.js for the first time and rendering everything in the front-end w
   text: inner text
 }
 
+## Edit Modal
+Every component has it's own editing modal. It's a bit heavy, but easier to deal with.
+Components should have EditModalBase to implement the functionality.
+
 ## Project Setup
 ```sh
 npm install
