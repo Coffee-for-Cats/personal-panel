@@ -23,5 +23,6 @@
     padding: .2rem;
     border: 1px solid white;
     border-radius: .2rem;
+    margin: .2rem;
   }
 </style>
