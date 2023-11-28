@@ -1,5 +1,4 @@
 <script setup>
-  import { reactive, ref } from 'vue'
   const { content } = defineProps(['content']);
 </script>
 
