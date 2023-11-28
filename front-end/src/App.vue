@@ -28,9 +28,10 @@ if (editing) {
 // Dynamic components hashmap.
 const Components = {}
 
-for (panel in pagePanels.value) {
+for (const panel of pagePanels.value) {
   // if the component does not exist yet.
   if (!pagePanels[panel.component]) {
+    console.log(`loading ${panel.component}`);
     // gives it to vue download.
     const component = defineAsyncComponent(
       () => import(`./components/${panel.component}.vue`)

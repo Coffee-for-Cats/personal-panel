@@ -7,6 +7,7 @@ const pagePanels = inject(['pagePanels'])
 function closeModal() {
   target.value = false;
 }
+
 </script>
 
 <template>
@@ -17,7 +18,7 @@ function closeModal() {
           // has to be -1 because if it's the first index (0) it breaks the v-for
           pagePanels[target - 1].content.text = e.target.value
         }"
-        :value="target.text"
+        :value="pagePanels[target - 1].content.text"
       >
       <br>
       <button class="ok" @click="closeModal()">Ok</button>
