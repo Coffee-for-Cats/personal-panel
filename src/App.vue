@@ -12,7 +12,8 @@ import EditModal from './editing/EditModal.vue'
 // hardcoded json API.
 const pagePanels = ref();
 (async () => {
-  const response = await fetch('http://localhost:5000/');
+  const pageId = window.location.pathname || 'home';
+  const response = await fetch(`http://localhost:5000/${pageId}`);
   pagePanels.value = await response.json();
 })();
 
