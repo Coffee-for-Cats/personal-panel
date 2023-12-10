@@ -19,7 +19,8 @@ function moveSelfUp() {
 
 function moveSelfDown() {
   const nextIndex = panelIndex + 1;
-  if (nextIndex <= panels.value.length) {
+  // -1 because arrays starts at 0
+  if (nextIndex <= panels.value.length - 1) {
     // invert the previous and actual panel.
     const previousPanelTemp = panels.value[nextIndex];
     panels.value[nextIndex] = panels.value[panelIndex];
@@ -30,29 +31,51 @@ function moveSelfDown() {
 }
 
 function openModal() {
-  // has to be +1 because if it's the first index (0) it breaks the v-for
+  // has to be +1 because if it's the first index (0) it breaks the v-if
   editTarget.value = panelIndex + 1;
+}
+
+function trashSelf() {
+  console.log('trying to erase index ' + panelIndex + ' from array')
+  panels.value.splice(panelIndex, 1);
 }
 
 </script>
 
 <template>
   <div class="editBlock">
-    <button @click="openModal()">Edit</button>
-    <button @click="moveSelfUp">Up</button>
-    <button @click="moveSelfDown()">Down</button>
+    <button @click="openModal()">&#9998;</button>
+    <div class="vertical">
+      <button @click="moveSelfUp">&#10548;</button>
+      <button @click="moveSelfDown()">&#10549;</button>
+    </div>
+    <button @click="trashSelf()">&#128465;</button>
   </div>
 </template>
 
 <style scoped>
   button {
     display: flex;
-    margin-left: auto;
-    height: fit-content;
-    background: #0f0f0f;
+    background: rgba(15, 15, 15, .7);
+    padding: .2rem .3rem;
+    margin: 1px;
+    border: 1px solid rgba(200, 200, 200, .5);
+    border-radius: .2rem;
+    cursor: pointer;
+    font-size: 1rem;
   }
 
   .editBlock {
     display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .vertical {
+    display: flex;
+    flex-direction: column;
+  }
+  .vertical > button {
+    font-size: 1.1rem;
   }
 </style>

@@ -8,9 +8,7 @@
 
 <style>
   p {
-    grid-column-start: 1;
-    grid-column-end: 5;
-
-    margin-left: 2rem;
+    padding: .4rem;
+    margin-left: 1.2rem;
   }
 </style>

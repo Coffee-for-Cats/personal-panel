@@ -1,66 +1,72 @@
 <script setup>
 import { ref, defineAsyncComponent, provide, watch } from 'vue';
 
-// a section/toolbar for adding new elements in the page.
-import AddNew from './editing/AddNew.vue';
-// a group of buttons to move and/or edit a page element.
-import EditPanelButtons from './editing/EditPanelButtons.vue'
-// a hidden modal to edit a single page element.
-// turns visible when a button in EditPanelButtons is pressed.
-import EditModal from './editing/EditModal.vue'
+// tracks the elements in the page
+const pagePanels = ref([])
+const pathname = window.location.pathname.split('/').filter(str => str != '')
 
-// hardcoded json API.
-const pagePanels = ref();
-(async () => {
-  const pageId = window.location.pathname || 'home';
-  const response = await fetch(`http://localhost:5000/${pageId}`);
-  pagePanels.value = await response.json();
-})();
-
-// hardcoded editing option.
-const editing = true; // if I can edit the page. Should come from server too.
-const editTarget = ref(false); // target to the editing modal.
-if (editing) {
-  // provides to EditPanelButtons and EditModal.
-  provide('pagePanels', pagePanels);
-  provide('editTarget', editTarget);
+// gets pagePanels' value as json from the API
+startUp();
+async function startUp() {
+  const pageId = pathname[0] || 'home'
+  const response = null;
+  try {
+    response = await fetch(`http://localhost:5000/${pageId}`)
+    const panels = JSON.parse(response.json())
+    pagePanels.value = panels
+  } catch {
+    console.log("Got nothing from the server.")
+  }
 }
 
-watch(pagePanels, () => {
+// watches and rebuilds the website when the pagePanels updates
+const Components = {}
+watch(pagePanels.value, () => {
   for (const panel of pagePanels.value) {
-    // if the component does not exist yet.
+    // if the component is not yet cached
     if (!pagePanels[panel.component]) {
-      console.log(`loading ${panel.component}`);
-      // gives it to vue download.
+      // vue dynamic component (download)
       const component = defineAsyncComponent(
         () => import(`./components/${panel.component}.vue`)
       )
-      // saves in the hashtable
+      // saves for the next use
       Components[panel.component] = component;
     }
   }
 })
 
-// Dynamic components hashmap.
-const Components = {}
+// editing elements
+import EditToolbar from './editing/EditToolbar.vue'
+import EditPanelButtons from './editing/EditPanelButtons.vue'
+import EditModal from './editing/EditModal.vue'
+
+const editing = pathname[1] === "edit"  // is being edited right now
+const editTarget = ref(false);          // target being edited by editModal
+
+// provides ref's to /editing elements
+if (editing) {
+  console.log("editing current page")
+  provide('pagePanels', pagePanels)
+  provide('editTarget', editTarget)
+}
 
 </script>
 
 <template>
   <div id="container">
-    <template v-for="(_c, i) in pagePanels" :key="i">
+    <template v-for="(_, i) in pagePanels" :key="i">
       <div class="wrapper">
         <component
           :is="Components[pagePanels[i].component]"
           :content="pagePanels[i].content"
         />
-
         <EditPanelButtons v-if="editing" :panelIndex="i" />
       </div>
     </template>
   </div>
 
-  <AddNew v-if="editing" />
+  <EditToolbar v-if="editing" />
+  <!-- only visible when <edit> of EditPanelButtons is pressed -->
   <EditModal v-if="editTarget" />
 </template>
 
