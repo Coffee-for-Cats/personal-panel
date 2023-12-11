@@ -16,17 +16,14 @@ async function startUp() {
   })
   
   const panels = await response.json()
-  console.log(panels)
   pagePanels.value = panels
 }
 
 // watches and rebuilds the website when the pagePanels updates
 const Components = {}
 watch(pagePanels, async () => {
-  console.log('pagePanels altered!')
   for (const panel of pagePanels.value) {
     // if the component is not yet cached
-    console.log(`Loading ${panel.component} component!`)
     if (!Components[panel.component]) {
       // vue dynamic component (download)
       const component = defineAsyncComponent(
@@ -48,7 +45,6 @@ const editTarget = ref(false);          // target being edited by editModal
 
 // provides ref's to /editing elements
 if (editing) {
-  console.log("editing current page")
   provide('pagePanels', pagePanels)
   provide('editTarget', editTarget)
 }
