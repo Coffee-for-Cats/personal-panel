@@ -22,7 +22,7 @@ async function startUp() {
 
 // watches and rebuilds the website when the pagePanels updates
 const Components = {}
-watch(pagePanels, () => {
+watch(pagePanels, async () => {
   console.log('pagePanels altered!')
   for (const panel of pagePanels.value) {
     // if the component is not yet cached
@@ -36,7 +36,7 @@ watch(pagePanels, () => {
       Components[panel.component] = component;
     }
   }
-})
+}, { deep: true })
 
 // editing elements
 import EditToolbar from './editing/EditToolbar.vue'
