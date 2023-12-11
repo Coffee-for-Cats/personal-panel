@@ -1,16 +1,13 @@
-# front-end
-This is the front-end of my web project!
+# Front-End
+Hosted in vercel, this is the front-end of my web project.
 I am using vue.js for the first time and rendering everything in the front-end with async components.
 
-## API interface {}
-- component: codename for the component.
-- content: { -> passed for the component as a prop.
-  text: inner text
-}
+## Hosting & More
+There is a project in my github named 'personal-panel-api', check it out.
+Hosted in Azure, using MSSQL as a database; the api is completely public, you may be able to host any json by making a simple fetch request.
 
-## Edit Modal
-Every component has it's own editing modal. It's a bit heavy, but easier to deal with.
-Components should have EditModalBase to implement the functionality.
+## Elements
+Today, only Paragraphs and primary Titles are supported.
 
 ## Project Setup
 ```sh
