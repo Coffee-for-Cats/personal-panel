@@ -15,7 +15,7 @@ async function startUp() {
     mode: 'no-cors'
   })
   try {
-    const panels = await response.json()
+    const panels = JSON.parse(await response.text())
     console.log(panels)
     pagePanels.value = panels
   } catch {
