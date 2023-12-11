@@ -11,7 +11,8 @@ startUp();
 async function startUp() {
   const pageId = pathname[0] || 'home'
   const response = await fetch(`${serverUrl}${pageId}`, {
-    cache: 'force-cache'
+    cache: 'force-cache',
+    mode: 'no-cors'
   })
   try {
     const panels = await response.json()
