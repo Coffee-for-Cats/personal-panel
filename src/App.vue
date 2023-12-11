@@ -22,10 +22,10 @@ async function startUp() {
 
 // watches and rebuilds the website when the pagePanels updates
 const Components = {}
-watch(pagePanels.value, () => {
+watch(pagePanels, () => {
   for (const panel of pagePanels.value) {
     // if the component is not yet cached
-    if (!pagePanels[panel.component]) {
+    if (!Components[panel.component]) {
       // vue dynamic component (download)
       const component = defineAsyncComponent(
         () => import(`./components/${panel.component}.vue`)
