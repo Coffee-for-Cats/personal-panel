@@ -17,7 +17,7 @@ async function startUp() {
   
   const panels = await response.json()
   console.log(panels)
-  pagePanels.value = JSON.parse(panels)
+  pagePanels.value = panels
 }
 
 // watches and rebuilds the website when the pagePanels updates
