@@ -1,5 +1,6 @@
 <script setup>
 import { ref, defineAsyncComponent, provide, watch } from 'vue';
+import { serverUrl } from './config.js';
 
 // tracks the elements in the page
 const pagePanels = ref([])
@@ -9,19 +10,20 @@ const pathname = window.location.pathname.split('/').filter(str => str != '')
 startUp();
 async function startUp() {
   const pageId = pathname[0] || 'home'
-  const response = null;
+  const response = await fetch(`${serverUrl}${pageId}`, {
+    cache: 'force-cache'
+  })
   try {
-    response = await fetch(`http://localhost:5000/${pageId}`)
-    const panels = JSON.parse(response.json())
+    const panels = await response.json()
     pagePanels.value = panels
   } catch {
-    console.log("Got nothing from the server.")
+    console.error('The server did not return valid json!')
   }
 }
 
 // watches and rebuilds the website when the pagePanels updates
 const Components = {}
-watch(pagePanels.value, () => {
+watch(pagePanels, () => {
   for (const panel of pagePanels.value) {
     // if the component is not yet cached
     if (!pagePanels[panel.component]) {

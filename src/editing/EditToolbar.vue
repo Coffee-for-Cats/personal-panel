@@ -1,16 +1,26 @@
 <script setup>
-  import { inject } from 'vue';
-  const panels = inject('pagePanels');
+import { inject } from 'vue';
+import { serverUrl } from '../config.js'
+const panels = inject('pagePanels');
 
-  function add(component = "Paragraph") {
-    panels.value.push({
-      component, content: { text: 'Edit me.' }
-    })
+function add(component = "Paragraph") {
+  panels.value.push({
+    component, content: { text: 'Edit me.' }
+  })
 }
 
-  async function publish() {
-    //TODO: connect with the api to publish the panels as json
-  }
+async function publish() {
+  const body = JSON.stringify(panels.value)
+  console.log(body);
+  //TODO: connect with the api to publish the panels as json
+  const id = await fetch(serverUrl + 'publish', {
+    method: 'POST',
+    body, 
+  })
+
+  // refreshes and goes to the location.
+  window.location.assign(`https://${window.location.hostname}/${await id.text()}`)
+}
 </script>
 
 <template>
