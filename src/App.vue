@@ -16,6 +16,7 @@ async function startUp() {
   })
   try {
     const panels = await response.json()
+    console.log(panels)
     pagePanels.value = panels
   } catch {
     console.error('The server did not return valid json!')
