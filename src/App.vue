@@ -12,15 +12,11 @@ async function startUp() {
   const pageId = pathname[0] || 'home'
   const response = await fetch(`${serverUrl}${pageId}`, {
     cache: 'force-cache',
-    mode: 'no-cors'
   })
-  try {
-    const panels = JSON.parse(await response.text())
-    console.log(panels)
-    pagePanels.value = panels
-  } catch {
-    console.error('The server did not return valid json!')
-  }
+  
+  const panels = await response.json()
+  console.log(panels)
+  pagePanels.value = JSON.parse(panels)
 }
 
 // watches and rebuilds the website when the pagePanels updates
