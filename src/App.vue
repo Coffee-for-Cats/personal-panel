@@ -26,6 +26,7 @@ watch(pagePanels, () => {
   for (const panel of pagePanels.value) {
     // if the component is not yet cached
     if (!Components[panel.component]) {
+      console.log(`Loading ${panel.component} component!`)
       // vue dynamic component (download)
       const component = defineAsyncComponent(
         () => import(`./components/${panel.component}.vue`)
