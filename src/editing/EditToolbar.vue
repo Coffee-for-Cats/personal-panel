@@ -3,7 +3,7 @@ import { inject } from 'vue';
 import { serverUrl } from '../config.js'
 const panels = inject('pagePanels');
 
-function add(component = "Paragraph") {
+function add(component) {
   panels.value.push({
     component, content: { text: 'Edit me.' }
   })
