@@ -10,6 +10,7 @@ const pathname = window.location.pathname.split('/').filter(str => str != '')
 startUp();
 async function startUp() {
   const pageId = pathname[0] || 'home'
+  console.log(pageId);
   const response = await fetch(`${serverUrl}${pageId}`, {
     cache: 'force-cache',
     cors: 'no-cors'
