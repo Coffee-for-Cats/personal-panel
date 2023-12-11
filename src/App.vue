@@ -22,7 +22,8 @@ async function startUp() {
 
 // watches and rebuilds the website when the pagePanels updates
 const Components = {}
-watch(pagePanels.value, () => {
+watch(pagePanels, () => {
+  console.log('pagePanels altered!')
   for (const panel of pagePanels.value) {
     // if the component is not yet cached
     console.log(`Loading ${panel.component} component!`)
