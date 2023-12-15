@@ -40,7 +40,7 @@ watch(pagePanels, async () => {
 import EditToolbar from './editing/EditToolbar.vue'
 import EditPanelButtons from './editing/EditPanelButtons.vue'
 import EditModal from './editing/EditModal.vue'
-import EditPage from './editing/editPage.vue'
+import EditPage from './editing/EditPage.vue'
 
 const editing = pathname[1] === "edit"  // is being edited right now
 const editTarget = ref(false);          // target being edited by editModal
