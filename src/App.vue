@@ -40,6 +40,7 @@ watch(pagePanels, async () => {
 import EditToolbar from './editing/EditToolbar.vue'
 import EditPanelButtons from './editing/EditPanelButtons.vue'
 import EditModal from './editing/EditModal.vue'
+import EditPage from './editing/editPage.vue'
 
 const editing = pathname[1] === "edit"  // is being edited right now
 const editTarget = ref(false);          // target being edited by editModal
@@ -66,6 +67,7 @@ if (editing) {
   </div>
 
   <EditToolbar v-if="editing" />
+  <EditPage v-else/>
   <!-- only visible when <edit> of EditPanelButtons is pressed -->
   <EditModal v-if="editTarget" />
 </template>
