@@ -16,7 +16,6 @@ async function startUp() {
   })
   
   const panels = await response.json()
-  console.dir('The server responded with json: ', panels)
   pagePanels.value = panels
 }
 
