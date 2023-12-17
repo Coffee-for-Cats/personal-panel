@@ -13,7 +13,6 @@ async function startUp() {
   console.log(pageId);
   const response = await fetch(`${serverUrl}${pageId}`, {
     cache: 'force-cache',
-    mode: 'no-cors'
   })
   console.dir(await response.text())
   

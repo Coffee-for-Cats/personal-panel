@@ -15,7 +15,6 @@ async function publish() {
   //TODO: connect with the api to publish the panels as json
   const id = await fetch(serverUrl + 'publish', {
     method: 'POST',
-    mode: 'no-cors',
     body, 
   })
 
