@@ -14,9 +14,9 @@ async function startUp() {
   const response = await fetch(`${serverUrl}${pageId}`, {
     cache: 'force-cache',
   })
-  console.dir(await response.text())
   
   const panels = await response.json()
+  console.dir('The server responded with json: ', panels)
   pagePanels.value = panels
 }
 

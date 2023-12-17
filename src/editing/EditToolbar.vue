@@ -11,7 +11,7 @@ function add(component) {
 
 async function publish() {
   const body = JSON.stringify(panels.value)
-  console.log(body);
+  console.log('Sending: ', body, ', to the server');
   //TODO: connect with the api to publish the panels as json
   const id = await fetch(serverUrl + 'publish', {
     method: 'POST',
