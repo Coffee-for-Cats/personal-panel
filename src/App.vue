@@ -15,6 +15,7 @@ async function startUp() {
     cache: 'force-cache',
     mode: 'no-cors'
   })
+  console.dir(response)
   
   const panels = await response.json()
   pagePanels.value = panels
