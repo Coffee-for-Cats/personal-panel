@@ -13,7 +13,7 @@ async function startUp() {
   console.log(pageId);
   const response = await fetch(`${serverUrl}${pageId}`, {
     cache: 'force-cache',
-    cors: 'no-cors'
+    mode: 'no-cors'
   })
   
   const panels = await response.json()
